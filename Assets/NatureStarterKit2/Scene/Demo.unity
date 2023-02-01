@@ -2666,7 +2666,7 @@ RectTransform:
   m_Children:
   - {fileID: 577616278}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -7782,7 +7782,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: -179.664, y: 0, z: 0}
 --- !u!1001 &283535064
 PrefabInstance:
@@ -10286,7 +10286,7 @@ RectTransform:
   m_Children:
   - {fileID: 1434864827}
   m_Father: {fileID: 577616278}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
@@ -10538,7 +10538,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &554416230
 MonoBehaviour:
@@ -10761,7 +10761,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 911806213}
   - {fileID: 1164561951}
   - {fileID: 539351844}
   - {fileID: 879656600}
@@ -14528,7 +14527,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 577616278}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -15220,9 +15219,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f9e051242f9c1a47b5ca47acc7159ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bisonPopulationLabel: {fileID: 879656602}
   bisonPrefab: {fileID: 1495963092}
-  bisonCount: 30
+  bisonPopulationGO: {fileID: 879656602}
+  spawnArea: {x: 500, y: 500, z: 500}
 --- !u!4 &911806213
 Transform:
   m_ObjectHideFlags: 0
@@ -15231,12 +15230,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 911806211}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -500.07922, y: -244.92941, z: 100.629265}
+  m_LocalPosition: {x: 60.920773, y: 0.07058716, z: 100.629265}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 577616278}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &912331672
 PrefabInstance:
@@ -18503,7 +18502,7 @@ RectTransform:
   m_Children:
   - {fileID: 45388314}
   m_Father: {fileID: 577616278}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
@@ -19640,7 +19639,7 @@ Transform:
   - {fileID: 868171235}
   - {fileID: 1812460623}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1233880745 stripped
 Transform:
@@ -22071,9 +22070,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f9e051242f9c1a47b5ca47acc7159ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bisonPopulationLabel: {fileID: 0}
   bisonPrefab: {fileID: 0}
-  bisonCount: 30
+  bisonPopulationGO: {fileID: 0}
+  spawnArea: {x: 0, y: 0, z: 0}
 --- !u!4 &1496902529 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 472700, guid: d638ef2ca2fe20c4c9c08e125692d3f4, type: 3}
@@ -23602,7 +23601,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1680490576 stripped
 Transform:
