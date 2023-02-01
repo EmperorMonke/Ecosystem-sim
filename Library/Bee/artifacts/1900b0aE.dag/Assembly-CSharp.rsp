@@ -393,6 +393,7 @@
 "Assets/NatureStarterKit2/Standard Assets/Effects/ImageEffects/Scripts/Twirl.cs"
 "Assets/NatureStarterKit2/Standard Assets/Effects/ImageEffects/Scripts/VignetteAndChromaticAberration.cs"
 "Assets/NatureStarterKit2/Standard Assets/Effects/ImageEffects/Scripts/Vortex.cs"
+"Assets/SpeciesPopulation.cs"
 "Assets/TemperatureController.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark01.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark01_UGUI.cs"
