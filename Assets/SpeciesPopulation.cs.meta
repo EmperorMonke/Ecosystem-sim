@@ -3,7 +3,18 @@ guid: cbbbb171725a9a64b8b95d403f0ff933
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - bisonPrefab: {fileID: 919132149155446097, guid: 23bfb78f65b7c074c80daec90d68f27e, type: 3}
+  - deerPrefab: {instanceID: 0}
+  - wolfPrefab: {instanceID: 0}
+  - rattlesnakePrefab: {instanceID: 0}
+  - falconPrefab: {instanceID: 0}
+  - bisonPopulationText: {instanceID: 0}
+  - deerPopulationText: {instanceID: 0}
+  - wolfPopulationText: {instanceID: 0}
+  - rattlesnakePopulationText: {instanceID: 0}
+  - falconPopulationText: {instanceID: 0}
+  - spawnPoint: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
