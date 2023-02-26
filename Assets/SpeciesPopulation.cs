@@ -98,21 +98,59 @@ public class SpeciesPopulation : MonoBehaviour
     }
 
     void MoveOrganisms(List<GameObject> organismsList)
-    {
-        foreach (GameObject obj in organismsList)
-        {
-            Vector3 randomDirection = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
-            Vector3 targetPosition = obj.transform.position + randomDirection * moveSpeed * Time.deltaTime;
-if (targetPosition.x > terrainSize || targetPosition.x < -terrainSize ||
-targetPosition.z > terrainSize || targetPosition.z < -terrainSize)
 {
-randomDirection = -randomDirection;
-targetPosition = obj.transform.position + randomDirection * moveSpeed * Time.deltaTime;
+    foreach (GameObject obj in organismsList)
+    {
+        float edgeDistance = 10f; // distance from the edge at which a new direction is assigned
+
+        // check if organism is close to the edge
+        Vector3 pos = obj.transform.position;
+        bool nearEdge = pos.x > terrainSize - edgeDistance ||
+                        pos.x < -terrainSize + edgeDistance ||
+                        pos.z > terrainSize - edgeDistance ||
+                        pos.z < -terrainSize + edgeDistance;
+
+        if (nearEdge)
+        {
+            // rotate organism 180 degrees and continue moving forward
+            obj.transform.Rotate(Vector3.up, 180f);
+            pos = obj.transform.position;
+        }
+
+        Vector3 forward = obj.transform.forward;
+        Vector3 targetPosition = pos + forward * moveSpeed * Time.deltaTime;
+
+        // check if new position is outside the terrain, and invert the direction if necessary
+        if (targetPosition.x > terrainSize || targetPosition.x < -terrainSize ||
+            targetPosition.z > terrainSize || targetPosition.z < -terrainSize)
+        {
+            obj.transform.Rotate(Vector3.up, 180f);
+            forward = -forward;
+            targetPosition = pos + forward * moveSpeed * Time.deltaTime;
+        }
+
+        obj.transform.position = targetPosition;
+
+        // update original prefab position
+        GameObject prefab = null;
+        if (organismsList == deerList) prefab = deerPrefab;
+        else if (organismsList == rattlesnakeList) prefab = rattlesnakePrefab;
+        else if (organismsList == bisonList) prefab = bisonPrefab;
+        else if (organismsList == wolfList) prefab = wolfPrefab;
+        else if (organismsList == falconList) prefab = falconPrefab;
+
+        if (prefab != null)
+        {
+            GameObject original = GameObject.Find(prefab.name + "(Clone)");
+            if (original != null)
+            {
+                original.transform.position = obj.transform.position;
+                original.transform.rotation = obj.transform.rotation;
+            }
+        }
+    }
 }
-obj.transform.LookAt(targetPosition);
-obj.transform.position = targetPosition;
-}
-}
+
 void UpdatePopulationText()
 {
     populationText.text = "Bison: " + bisonList.Count + "\n" +
