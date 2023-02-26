@@ -12,11 +12,7 @@ public class SpeciesPopulation : MonoBehaviour
     public GameObject rattlesnakePrefab;
     public GameObject falconPrefab;
 
-    public TextMeshProUGUI bisonPopulationText;
-    public TextMeshProUGUI deerPopulationText;
-    public TextMeshProUGUI wolfPopulationText;
-    public TextMeshProUGUI rattlesnakePopulationText;
-    public TextMeshProUGUI falconPopulationText;
+    public TextMeshProUGUI populationText;
 
     private int bisonPopulation = 30;
     private int deerPopulation = 20;
@@ -28,6 +24,12 @@ public class SpeciesPopulation : MonoBehaviour
 
     private List<GameObject> deerList = new List<GameObject>();
     private List<GameObject> rattlesnakeList = new List<GameObject>();
+    private List<GameObject> bisonList = new List<GameObject>();
+    private List<GameObject> wolfList = new List<GameObject>();
+    private List<GameObject> falconList = new List<GameObject>();
+
+    private float moveSpeed = 3f;
+    private float terrainSize = 500f;
 
     void Start()
     {
@@ -39,24 +41,29 @@ public class SpeciesPopulation : MonoBehaviour
 
         RotateSpecies(deerList, new Vector3(-77.733f, 0f, 0f));
         RotateSpecies(rattlesnakeList, new Vector3(255.271f, 0f, 0f));
+        RotateSpecies(bisonList, new Vector3(0f, 0f, 0f));
+        RotateSpecies(wolfList, new Vector3(0f, 0f, 0f));
+        RotateSpecies(falconList, new Vector3(0f, 0f, 0f));
     }
 
     void Update()
     {
-        UpdateLabel(bisonPopulationText, bisonPopulation);
-        UpdateLabel(deerPopulationText, deerList.Count);
-        UpdateLabel(wolfPopulationText, wolfPopulation);
-        UpdateLabel(rattlesnakePopulationText, rattlesnakeList.Count);
-        UpdateLabel(falconPopulationText, falconPopulation);
+        UpdatePopulationText();
+
+        MoveOrganisms(deerList);
+        MoveOrganisms(rattlesnakeList);
+        MoveOrganisms(bisonList);
+        MoveOrganisms(wolfList);
+        MoveOrganisms(falconList);
     }
 
     void SpawnSpecies(GameObject prefab, int population)
     {
         for (int i = 0; i < population; i++)
         {
-            Vector3 randomPos = new Vector3(Random.Range(-spawnArea.x, spawnArea.x), 
-                                            (float)9,  
-                                            Random.Range(-spawnArea.z, spawnArea.z));
+            Vector3 randomPos = new Vector3(Random.Range(-terrainSize, terrainSize),
+                                            (float)9,
+                                            Random.Range(-terrainSize, terrainSize));
             GameObject obj = Instantiate(prefab, randomPos, Quaternion.identity);
             if (prefab == deerPrefab)
             {
@@ -66,12 +73,20 @@ public class SpeciesPopulation : MonoBehaviour
             {
                 rattlesnakeList.Add(obj);
             }
+            else if (prefab == bisonPrefab)
+            {
+                bisonList.Add(obj);
+            }
+            else if (prefab == wolfPrefab)
+            {
+                wolfList.Add(obj);
+            }
+            else if (prefab == falconPrefab)
+            {
+                obj.transform.position = new Vector3(obj.transform.position.x, 57.2f, obj.transform.position.z);
+                falconList.Add(obj);
+            }
         }
-    }
-
-    void UpdateLabel(TextMeshProUGUI text, int population)
-    {
-        text.text = text.name + ": " + population;
     }
 
     void RotateSpecies(List<GameObject> speciesList, Vector3 rotation)
@@ -81,4 +96,29 @@ public class SpeciesPopulation : MonoBehaviour
             obj.transform.Rotate(rotation);
         }
     }
+
+    void MoveOrganisms(List<GameObject> organismsList)
+    {
+        foreach (GameObject obj in organismsList)
+        {
+            Vector3 randomDirection = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
+            Vector3 targetPosition = obj.transform.position + randomDirection * moveSpeed * Time.deltaTime;
+if (targetPosition.x > terrainSize || targetPosition.x < -terrainSize ||
+targetPosition.z > terrainSize || targetPosition.z < -terrainSize)
+{
+randomDirection = -randomDirection;
+targetPosition = obj.transform.position + randomDirection * moveSpeed * Time.deltaTime;
+}
+obj.transform.LookAt(targetPosition);
+obj.transform.position = targetPosition;
+}
+}
+void UpdatePopulationText()
+{
+    populationText.text = "Bison: " + bisonList.Count + "\n" +
+                          "Deer: " + deerList.Count + "\n" +
+                          "Wolf: " + wolfList.Count + "\n" +
+                          "Rattlesnake: " + rattlesnakeList.Count + "\n" +
+                          "Falcon: " + falconList.Count;
+}
 }
