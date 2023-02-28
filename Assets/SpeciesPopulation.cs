@@ -31,6 +31,10 @@ public class SpeciesPopulation : MonoBehaviour
     private float moveSpeed = 3f;
     private float terrainSize = 500f;
 
+    public float temperature = 0;
+    public TextMeshProUGUI temperatureText;
+    public int populationChange;
+
     void Start()
     {
         SpawnSpecies(bisonPrefab, bisonPopulation);
@@ -55,6 +59,18 @@ public class SpeciesPopulation : MonoBehaviour
         MoveOrganisms(bisonList);
         MoveOrganisms(wolfList);
         MoveOrganisms(falconList);
+
+         if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            IncreaseTemperature();
+            populationChange = Random.Range(1, 9);
+        }
+
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            DecreaseTemperature();
+            populationChange = Random.Range(1, 9);
+        }
     }
 
     void SpawnSpecies(GameObject prefab, int population)
@@ -92,7 +108,7 @@ public class SpeciesPopulation : MonoBehaviour
     void RotateSpecies(List<GameObject> speciesList, Vector3 rotation)
     {
         foreach (GameObject obj in speciesList)
-        {
+        {   
             obj.transform.Rotate(rotation);
         }
     }
@@ -116,9 +132,22 @@ public class SpeciesPopulation : MonoBehaviour
             obj.transform.Rotate(Vector3.up, 180f);
             pos = obj.transform.position;
         }
+        Vector3 forward;
+        Vector3 targetPosition;
+        if (obj.name == "Bison(Clone)") {
+            forward = obj.transform.forward;
+            targetPosition = pos - forward * moveSpeed * Time.deltaTime;
+        }
+        else if (obj.name == "12961_White-Tailed_Deer_v1_l2(Clone)" || obj.name == "10050_RattleSnake_v4_L3(Clone)") {
+            forward = -obj.transform.right;
+            targetPosition = pos + forward * moveSpeed * Time.deltaTime;
+            targetPosition.y = 0; // maintain the same y position
 
-        Vector3 forward = obj.transform.forward;
-        Vector3 targetPosition = pos + forward * moveSpeed * Time.deltaTime;
+        }
+        else {
+            forward = obj.transform.forward;
+            targetPosition = pos + forward * moveSpeed * Time.deltaTime;
+        }
 
         // check if new position is outside the terrain, and invert the direction if necessary
         if (targetPosition.x > terrainSize || targetPosition.x < -terrainSize ||
@@ -153,10 +182,65 @@ public class SpeciesPopulation : MonoBehaviour
 
 void UpdatePopulationText()
 {
-    populationText.text = "Bison: " + bisonList.Count + "\n" +
-                          "Deer: " + deerList.Count + "\n" +
-                          "Wolf: " + wolfList.Count + "\n" +
-                          "Rattlesnake: " + rattlesnakeList.Count + "\n" +
-                          "Falcon: " + falconList.Count;
+    populationText.text = "Bison: " + bisonPopulation+ "\n" +
+                      "Deer: " + deerPopulation+ "\n" +
+                      "Wolf: " + wolfPopulation + "\n" +
+                      "Rattlesnake: " + rattlesnakePopulation+ "\n" +
+                      "Falcon: " + falconPopulation;
 }
+
+ public void IncreaseTemperature()
+    {
+        temperature += 1;
+
+        if (temperature == 1)
+        {
+            temperatureText.text = "High Temperature";
+            bisonPopulation -= populationChange;
+            wolfPopulation -= populationChange;
+            rattlesnakePopulation += (populationChange+3);
+            falconPopulation -= populationChange;
+            
+        }
+        else if (temperature == 2)  
+        {
+            temperature = 1;
+        }
+        else
+        {
+            temperatureText.text = "Normal Temperature";
+            bisonPopulation = 30;
+            deerPopulation = 20;
+            wolfPopulation = 10;
+            rattlesnakePopulation = 5;
+            falconPopulation = 15;
+        }
+    }
+
+    public void DecreaseTemperature()
+    {
+        temperature -= 1;
+
+        if (temperature == -1)
+        {
+            temperatureText.text = "Low Temperature";
+            deerPopulation += populationChange;
+            wolfPopulation += populationChange;
+            rattlesnakePopulation -= populationChange;
+
+        }
+        else if (temperature == -2)
+        {
+            temperature = -1;
+        }
+        else
+        {
+            temperatureText.text = "Normal Temperature";
+            bisonPopulation = 30;
+            deerPopulation = 20;
+            wolfPopulation = 10;
+            rattlesnakePopulation = 5;
+            falconPopulation = 15;
+        }
+    }
 }
